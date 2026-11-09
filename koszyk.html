@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koszyk | Polimet</title>
+<meta name="description" content="Koszyk.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styl.css">
+<link rel="icon" href="data:,">
+<script src="dane/dane.js"></script>
+<script src="dane/opinie.js"></script>
+<script src="js/app.js"></script>
+</head>
+<body class="str-koszyk bez-menu">
+<a class="pomin" href="#tresc">Przejdź do treści</a>
+<header class="gora">
+<div class="pasek">
+  <div class="w pasek__w">
+    <ul class="pasek__lista">
+      <li>Darmowa dostawa od 500 zł</li>
+      <li>Odbiór osobisty w Policach</li>
+      <li>Zwrot do 14 dni</li>
+      <li>Faktura VAT</li>
+    </ul>
+    <p class="pasek__tel">Zamówienia telefoniczne: <a href="tel:+48698653508">698 653 508</a> <span>pon.-pt. 8:00-16:00</span></p>
+  </div>
+</div>
+<div class="naglowek">
+  <div class="w naglowek__w">
+    <a class="logo" href="index.html"><img src="img/logo-polimet.png" alt="Polimet, sklep z Polic" width="152" height="40"></a>
+    <form class="szukaj" action="szukaj.html" role="search">
+      <label class="ukryte" for="q">Szukaj w sklepie</label>
+      <input id="q" name="q" type="search" placeholder="Szukaj, np. lina stalowa 6 mm" autocomplete="off"
+        role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="podpowiedzi">
+      <button type="submit">Szukaj</button>
+      <div class="podp" id="podpowiedzi" role="listbox" aria-label="Podpowiedzi" hidden></div>
+    </form>
+    <nav class="akcje" aria-label="Konto i koszyk">
+      <a class="akcje__tel" href="tel:+48698653508">Zadzwoń</a>
+      <a href="#" data-demo>Zamówienia</a>
+      <a href="#" data-demo>Konto</a>
+      <a class="akcje__kosz" href="koszyk.html">Koszyk <span class="licznik" data-licznik hidden>0</span><span class="akcje__suma" data-suma></span></a>
+    </nav>
+    <button class="menu-przycisk" type="button" aria-expanded="false" aria-controls="menu">Kategorie</button>
+  </div>
+</div>
+
+</header>
+<div class="w uklad">
+  <nav class="menu" id="menu" aria-label="Kategorie produktów">
+    <p class="menu__tytul">Kategorie</p>
+    <ul><li><a href="kategoria.html?id=17" data-kat="17">Bloczki linowe</a></li><li><a href="kategoria.html?id=16" data-kat="16">Haki</a></li><li><a href="kategoria.html?id=30" data-kat="30">Karabińczyki</a></li><li><a href="kategoria.html?id=31" data-kat="31">Kausze</a></li><li><a href="kategoria.html?id=42" data-kat="42">Krętliki</a></li><li><a href="kategoria.html?id=9" data-kat="9">Liny</a></li><li><a href="kategoria.html?id=102" data-kat="102">Liny polipropylenowe</a></li><li><a href="kategoria.html?id=1" data-kat="1">Łańcuchy</a></li><li><a href="kategoria.html?id=22" data-kat="22">Łańcuchy śniegowe</a></li><li><a href="kategoria.html?id=41" data-kat="41">Naciągi i napinacze transportowe</a></li><li><a href="kategoria.html?id=114" data-kat="114">Nakrętki i podkładki</a></li><li><a href="kategoria.html?id=64" data-kat="64">Obejmy do huśtawek</a></li><li><a href="kategoria.html?id=29" data-kat="29">Odciągi łańcuchowe</a></li><li><a href="kategoria.html?id=28" data-kat="28">Ogniwa zawiesiowe</a></li><li><a href="kategoria.html?id=53" data-kat="53">Okrętki</a></li><li><a href="kategoria.html?id=108" data-kat="108">Pasy do mocowania ładunków</a></li><li><a href="kategoria.html?id=62" data-kat="62">Spinacze</a></li><li><a href="kategoria.html?id=18" data-kat="18">Szekle</a></li><li><a href="kategoria.html?id=45" data-kat="45">Śruby i nakrętki z uchem</a></li><li><a href="kategoria.html?id=111" data-kat="111">Śruby klasowe</a></li><li><a href="kategoria.html?id=101" data-kat="101">Śruby rzymskie</a></li><li><a href="kategoria.html?id=96" data-kat="96">Tuleje aluminiowe</a></li><li><a href="kategoria.html?id=19" data-kat="19">Zabezpieczenia</a></li><li><a href="kategoria.html?id=20" data-kat="20">Zaciski linowe</a></li><li><a href="kategoria.html?id=107" data-kat="107">Zawiesia pasowe</a></li></ul>
+  </nav>
+  <main id="tresc" class="glowna">
+<ol class="kroki" aria-label="Kroki zamówienia"><li aria-current="step"><b>1</b><span>Koszyk</span></li><li><b>2</b><span>Dane i dostawa</span></li><li><b>3</b><span>Potwierdzenie</span></li></ol>
+    <header class="kat-g"><h1>Koszyk</h1></header>
+    <div class="koszyk" data-koszyk></div>
+
+  </main>
+</div>
+<div class="pasek-koszyka" data-pasek-koszyka role="region" aria-label="Szybki zakup" hidden></div>
+<script>PMstart();</script>
+<footer class="stopka">
+  <div class="w">
+    <form class="nl" data-newsletter data-tryb="zapisz" novalidate>
+      <div class="nl__t"><p class="nl__h">Promocje i nowości z hurtowni</p><p data-nl-opis>E-mail, gdy pojawi się promocja albo nowy towar. Wypisać się możesz w każdej chwili.</p>
+        <button class="nl__tryb" type="button" data-nl-tryb>Chcesz się wypisać?</button></div>
+      <div class="nl__f"><label class="ukryte" for="nl-email">Adres e-mail</label><input id="nl-email" type="email" name="email" autocomplete="email" placeholder="twoj@email.pl" required><button class="btn btn--s" type="submit">Zapisz się</button>
+      <label class="nl__zg"><input type="checkbox" name="zgoda_newsletter_marketing" value="1" required><span>Zgadzam się na przetwarzanie mojego e-maila przez POLIMET Góral Krzysztof w celu wysyłki newslettera.</span></label>
+      <label class="nl__zg"><input type="checkbox" name="zgoda_newsletter_info_handlowa" value="1" required><span>Zgadzam się na otrzymywanie informacji handlowych drogą elektroniczną. Zgody mogę wycofać w każdej chwili.</span></label>
+      <p class="nl__wynik" data-nl-wynik role="status"></p></div>
+    </form>
+    <div class="stopka__w">
+      <div class="stopka__firma">
+        <img src="img/logo-polimet.png" alt="Polimet" width="152" height="40">
+        <p>Hurtownia lin, łańcuchów i osprzętu w Policach, od 1999 r.</p>
+        <a class="stopka__oc" href="https://www.google.com/maps?cid=14561847575084938255"><span class="op-gw" aria-hidden="true">★★★★★</span><span><b>5,0</b> z 46 opinii w Google</span></a>
+        <a class="stopka__oc" href="https://allegro.pl/uzytkownik/polimet-police/oceny"><span>Oceny na Allegro, od 2008 r.</span></a>
+        <ul class="social" aria-label="Polimet w mediach społecznościowych">
+          <li><a class="social__a social__a--fb" href="https://www.facebook.com/Polimet1" target="_blank" rel="noopener"><span class="social__ik" aria-hidden="true">f</span>Facebook</a></li>
+          <li><a class="social__a social__a--yt" href="https://www.youtube.com/channel/UCraJZ-bznx1qrCGjzczqj8Q" target="_blank" rel="noopener"><span class="social__ik" aria-hidden="true"></span>YouTube</a></li>
+        </ul>
+      </div>
+      <nav class="stopka__kol" aria-label="Kategorie w stopce">
+        <p class="stopka__tytul">Kategorie</p>
+        <ul><li><a href="kategoria.html?id=22">Łańcuchy śniegowe</a></li><li><a href="kategoria.html?id=1">Łańcuchy</a></li><li><a href="kategoria.html?id=9">Liny</a></li><li><a href="kategoria.html?id=16">Haki</a></li><li><a href="kategoria.html?id=18">Szekle</a></li><li><a href="kategoria.html?id=28">Ogniwa zawiesiowe</a></li><li><a href="zestawy.html">Zestawy</a></li></ul>
+      </nav>
+      <nav class="stopka__kol" aria-label="Informacje o zakupach">
+        <p class="stopka__tytul">Zakupy</p>
+        <ul><li><a href="strona.html?id=16">Zasady wysyłki</a></li><li><a href="strona.html?id=19">Płatności</a></li>
+        <li><a href="strona.html?id=22">Zwroty i odstąpienie od umowy</a></li><li><a href="#" data-demo>Regulamin</a></li><li><a href="#" data-demo>Polityka prywatności</a></li></ul>
+      </nav>
+      <div class="stopka__kol">
+        <p class="stopka__tytul">Odbiór osobisty</p>
+        <p>ul. Galla Anonima 3a<br>72-010 Police</p>
+        <p><span class="stopka__et">Godziny odbioru</span><br>pon.-pt. 9:00-16:00</p>
+        <p><a class="stopka__mapa" href="https://www.google.com/maps?cid=14561847575084938255">Mapa i dojazd</a></p>
+      </div>
+      <div class="stopka__kontakt">
+        <p class="stopka__tytul">Zamówienia telefoniczne</p>
+        <a class="stopka__tel" href="tel:+48698653508">698 653 508</a>
+        <a class="stopka__mail" href="mailto:polimet3@wp.pl">polimet3@wp.pl</a>
+        <p><span class="stopka__et">Telefon i e-mail</span><br><span class="nw">pon.-pt. 8:00-16:00</span></p>
+      </div>
+    </div>
+    <div class="stopka__dol">
+      <p>© 1999–2026 POLIMET Góral Krzysztof, ul. Galla Anonima 3, 72-010 Police, NIP 851-118-78-19</p>
+      <ul><li><a href="#" data-demo>Regulamin</a></li><li><a href="#" data-demo>Polityka prywatności</a></li><li><a href="#" data-demo>Ustawienia cookies</a></li></ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polimet: łańcuchy, liny stalowe, szekle i haki</title>
+<meta name="description" content="Sklep Polimet z Polic.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styl.css">
+<link rel="icon" href="data:,">
+<script src="dane/dane.js"></script>
+<script src="dane/opinie.js"></script>
+<script src="js/app.js"></script>
+</head>
+<body class="str-glowna">
+<a class="pomin" href="#tresc">Przejdź do treści</a>
+<header class="gora">
+<div class="pasek">
+  <div class="w pasek__w">
+    <ul class="pasek__lista">
+      <li>Darmowa dostawa od 500 zł</li>
+      <li>Odbiór osobisty w Policach</li>
+      <li>Zwrot do 14 dni</li>
+      <li>Faktura VAT</li>
+    </ul>
+    <p class="pasek__tel">Zamówienia telefoniczne: <a href="tel:+48698653508">698 653 508</a> <span>pon.-pt. 8:00-16:00</span></p>
+  </div>
+</div>
+<div class="naglowek">
+  <div class="w naglowek__w">
+    <a class="logo" href="index.html"><img src="img/logo-polimet.png" alt="Polimet, sklep z Polic" width="152" height="40"></a>
+    <form class="szukaj" action="szukaj.html" role="search">
+      <label class="ukryte" for="q">Szukaj w sklepie</label>
+      <input id="q" name="q" type="search" placeholder="Szukaj, np. lina stalowa 6 mm" autocomplete="off"
+        role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="podpowiedzi">
+      <button type="submit">Szukaj</button>
+      <div class="podp" id="podpowiedzi" role="listbox" aria-label="Podpowiedzi" hidden></div>
+    </form>
+    <nav class="akcje" aria-label="Konto i koszyk">
+      <a class="akcje__tel" href="tel:+48698653508">Zadzwoń</a>
+      <a href="#" data-demo>Zamówienia</a>
+      <a href="#" data-demo>Konto</a>
+      <a class="akcje__kosz" href="koszyk.html">Koszyk <span class="licznik" data-licznik hidden>0</span><span class="akcje__suma" data-suma></span></a>
+    </nav>
+    <button class="menu-przycisk" type="button" aria-expanded="false" aria-controls="menu">Kategorie</button>
+  </div>
+</div>
+<nav class="katpasek" aria-label="Najważniejsze kategorie"><div class="w katpasek__w"><button class="katpasek__wsz" type="button" aria-expanded="false" aria-controls="menu">Wszystkie kategorie</button><ul><li><a href="kategoria.html?id=22" data-kat="22">Łańcuchy śniegowe</a></li><li><a href="kategoria.html?id=1" data-kat="1">Łańcuchy</a></li><li><a href="kategoria.html?id=9" data-kat="9">Liny</a></li><li><a href="kategoria.html?id=16" data-kat="16">Haki</a></li><li><a href="kategoria.html?id=18" data-kat="18">Szekle</a></li><li><a href="kategoria.html?id=28" data-kat="28">Ogniwa zawiesiowe</a></li><li><a href="kategoria.html?id=107" data-kat="107">Zawiesia pasowe</a></li><li><a class="katpasek__zest" href="zestawy.html" data-zestawy>Zestawy</a></li></ul></div></nav>
+</header>
+<div class="w uklad">
+  <nav class="menu" id="menu" aria-label="Kategorie produktów">
+    <p class="menu__tytul">Kategorie</p>
+    <ul><li><a href="kategoria.html?id=17" data-kat="17">Bloczki linowe</a></li><li><a href="kategoria.html?id=16" data-kat="16">Haki</a></li><li><a href="kategoria.html?id=30" data-kat="30">Karabińczyki</a></li><li><a href="kategoria.html?id=31" data-kat="31">Kausze</a></li><li><a href="kategoria.html?id=42" data-kat="42">Krętliki</a></li><li><a href="kategoria.html?id=9" data-kat="9">Liny</a></li><li><a href="kategoria.html?id=102" data-kat="102">Liny polipropylenowe</a></li><li><a href="kategoria.html?id=1" data-kat="1">Łańcuchy</a></li><li><a href="kategoria.html?id=22" data-kat="22">Łańcuchy śniegowe</a></li><li><a href="kategoria.html?id=41" data-kat="41">Naciągi i napinacze transportowe</a></li><li><a href="kategoria.html?id=114" data-kat="114">Nakrętki i podkładki</a></li><li><a href="kategoria.html?id=64" data-kat="64">Obejmy do huśtawek</a></li><li><a href="kategoria.html?id=29" data-kat="29">Odciągi łańcuchowe</a></li><li><a href="kategoria.html?id=28" data-kat="28">Ogniwa zawiesiowe</a></li><li><a href="kategoria.html?id=53" data-kat="53">Okrętki</a></li><li><a href="kategoria.html?id=108" data-kat="108">Pasy do mocowania ładunków</a></li><li><a href="kategoria.html?id=62" data-kat="62">Spinacze</a></li><li><a href="kategoria.html?id=18" data-kat="18">Szekle</a></li><li><a href="kategoria.html?id=45" data-kat="45">Śruby i nakrętki z uchem</a></li><li><a href="kategoria.html?id=111" data-kat="111">Śruby klasowe</a></li><li><a href="kategoria.html?id=101" data-kat="101">Śruby rzymskie</a></li><li><a href="kategoria.html?id=96" data-kat="96">Tuleje aluminiowe</a></li><li><a href="kategoria.html?id=19" data-kat="19">Zabezpieczenia</a></li><li><a href="kategoria.html?id=20" data-kat="20">Zaciski linowe</a></li><li><a href="kategoria.html?id=107" data-kat="107">Zawiesia pasowe</a></li></ul>
+  </nav>
+  <main id="tresc" class="glowna">
+
+    <div class="przyp" data-przyp hidden></div>
+    <section class="start">
+      <img class="start__foto" src="img/foto/lina.webp" alt="" width="1800" height="1200" fetchpriority="high">
+      <div class="start__tekst">
+        <p class="start__haslo">Polimet, firma która łączy</p>
+        <h1>Liny, łańcuchy i osprzęt do zawiesi prosto z hurtowni w Policach</h1>
+        <p class="start__lead">1 713 produktów, większość od jednej sztuki albo metra. Zamawiasz przez stronę albo telefonicznie, odbierasz kurierem lub osobiście w Policach.</p>
+        <p class="start__cta"><a class="btn btn--k" href="#dobor">Dobierz łańcuchy śniegowe</a> <a class="btn btn--j" href="#kategorie">Przeglądaj kategorie</a></p>
+        <a class="start__oc" href="https://www.google.com/maps?cid=14561847575084938255"><span class="op-gw" aria-hidden="true">★★★★★</span><span><b>5,0</b> z 46 opinii w Google</span></a>
+      </div>
+      <ul class="fakty start__fakty">
+        <li><b>1999</b>od tego roku działamy w Policach</li>
+        <li><b>2008</b>od tego roku sprzedajemy na Allegro, <a href="https://allegro.pl/uzytkownik/polimet-police/oceny">zobacz oceny</a></li>
+        <li><b>24 h</b>czas wysyłki przy 1 567 produktach</li>
+        <li><b>500 zł</b>od tej kwoty dostawa gratis</li>
+      </ul>
+    </section>
+    <section class="sek opinie" data-opinie aria-label="Opinie klientów w Google"></section>
+    <section class="sezon" id="dobor" data-dobor aria-labelledby="dobor-t">
+      <img class="sezon__foto" src="img/foto/snieg.webp" alt="" width="600" height="900" loading="lazy">
+      <div class="sezon__tekst">
+        <p class="sezon__kiedy">Sezon zimowy</p>
+        <h2 id="dobor-t">Łańcuchy śniegowe dobrane do Twojej opony</h2>
+        <p>Do aut osobowych, dostawczych, 4x4, ciężarowych, ciągników i wózków widłowych. 520 pozycji w sklepie.</p>
+        <form class="opona-f" action="kategoria.html">
+          <input type="hidden" name="id" value="22">
+          <fieldset class="opona">
+            <legend class="ukryte">Rozmiar opony</legend>
+            <label class="opona__pole"><span class="opona__et">Szerokość</span><select name="s" data-pole="s"></select></label>
+            <span class="opona__sep" aria-hidden="true">/</span>
+            <label class="opona__pole"><span class="opona__et">Profil</span><select name="p" data-pole="p"></select></label>
+            <span class="opona__sep" aria-hidden="true">R</span>
+            <label class="opona__pole"><span class="opona__et">Felga</span><select name="f" data-pole="f"></select></label>
+          </fieldset>
+          <button class="btn btn--k opona__btn" type="submit" data-dobor-btn>Pokaż łańcuchy</button>
+        </form>
+        <p class="sezon__pom" data-dobor-ile aria-live="polite"></p>
+      </div>
+    </section>
+    <section class="sek ogl" data-ogl hidden aria-labelledby="ogl-t"></section>
+    <section class="sek detal" aria-labelledby="detal-t">
+      <div class="sek__g"><h2 class="h2" id="detal-t">Do domu, ogrodu i auta</h2><p class="sek__opis">1 302 z 1 713 produktów kupisz od jednej sztuki albo metra.</p></div>
+      <ul class="detal__l"><li><a class="detal__k" href="kategoria.html?id=23"><span class="detal__img"><img src="img/min/b09319bb3a39.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Auto zimą</b><span>Łańcuchy śniegowe do samochodów osobowych. Dobierzesz je po rozmiarze opony.</span><span class="detal__od">68 produktów, od <b>98,18 zł</b> / kpl</span></span></a></li><li><a class="detal__k" href="kategoria.html?id=108"><span class="detal__img"><img src="img/min/4d4f605d9624.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Ładunek na przyczepce</b><span>Pasy z napinaczem do mocowania ładunków.</span><span class="detal__od">3 produkty, od <b>49,00 zł</b> / szt</span></span></a></li><li><a class="detal__k" href="kategoria.html?id=105"><span class="detal__img"><img src="img/min/4ff6299b42fc.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Plandeka i bagażnik</b><span>Lina gumowa (ekspander) na metry, 4-12 mm.</span><span class="detal__od">5 produktów, od <b>1,05 zł</b> / mb</span></span></a></li><li><a class="detal__k" href="kategoria.html?id=64"><span class="detal__img"><img src="img/min/783132fc4f1b.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Huśtawka w ogrodzie</b><span>Obejmy do zawieszenia huśtawki na belce.</span><span class="detal__od">2 produkty, od <b>18,00 zł</b> / szt</span></span></a></li><li><a class="detal__k" href="kategoria.html?id=11"><span class="detal__img"><img src="img/min/e6070b7d8d87.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Pergola i ogrodzenie</b><span>Linka stalowa w otulinie PCV na metry.</span><span class="detal__od">11 produktów, od <b>0,29 zł</b> / mb</span></span></a></li><li><a class="detal__k" href="kategoria.html?id=2"><span class="detal__img"><img src="img/min/d79e5350bf17.webp" alt="" width="160" height="120" loading="lazy"></span><span class="detal__t"><b>Dekoracje</b><span>Łańcuchy dekoracyjne na metry.</span><span class="detal__od">43 produkty, od <b>6,00 zł</b> / mb</span></span></a></li></ul>
+    </section>
+    <section class="sek" id="kategorie">
+      <div class="sek__g"><h2 class="h2">Kategorie</h2><p class="sek__opis">Ceny od najtańszej pozycji w kategorii.</p></div>
+      <ul class="kafle" data-kafle></ul>
+    </section>
+    <section class="sek zast" aria-labelledby="zast-t">
+      <div class="sek__g"><h2 class="h2" id="zast-t">Do czego potrzebujesz?</h2></div>
+      <ul class="zast__l"><li><a class="zast__k" href="zestawy.html#zawiesie"><img src="img/foto/hak.webp" alt="" width="600" height="900" loading="lazy"><span class="zast__t"><b class="zast__h">Zawiesie łańcuchowe na wymiar</b><span class="zast__o">Wybierasz liczbę cięgien, łańcuch klasy 10, długość i haki. Odpowiadamy z ceną i terminem.</span><span class="zast__cta">Skonfiguruj zawiesie</span></span></a></li><li><a class="zast__k" href="zestawy.html#lina"><img src="img/foto/szpule.webp" alt="" width="600" height="400" loading="lazy"><span class="zast__t"><b class="zast__h">Lina z osprzętem w jednym zestawie</b><span class="zast__o">Kausza i zacisk dobrane do średnicy liny, do tego szekla albo śruba rzymska. Jedno kliknięcie do koszyka.</span><span class="zast__cta">Złóż zestaw do liny</span></span></a></li><li><a class="zast__k" href="kategoria.html?id=29"><img src="img/foto/lancuch.webp" alt="" width="600" height="399" loading="lazy"><span class="zast__t"><b class="zast__h">Mocowanie ładunków w transporcie</b><span class="zast__o">Odciągi łańcuchowe z napinaczem grzechotkowym i łańcuchy odciągowe, 25 produktów.</span><span class="zast__cta">Zobacz odciągi łańcuchowe</span></span></a></li></ul>
+    </section>
+    <section class="sek firmy" aria-labelledby="firmy-t">
+      <div class="firmy__g">
+        <h2 class="h2" id="firmy-t">Kupujesz dla firmy albo większą ilość?</h2>
+        <p class="firmy__lead">Hurtownia z Polic: faktura VAT, ceny netto przy każdym produkcie i zamówienia przez telefon.</p>
+        <p class="firmy__cta"><a class="btn btn--s" href="tel:+48698653508">Zadzwoń: 698 653 508</a><a class="btn btn--b" href="mailto:polimet3@wp.pl?subject=Zapytanie%20o%20wi%C4%99ksz%C4%85%20ilo%C5%9B%C4%87">Wyślij zapytanie e-mailem</a></p>
+      </div>
+      <ul class="firmy__lista">
+        <li><b>Faktura VAT na firmę</b>Wybierasz „Firma” i wpisujesz NIP w zamówieniu.</li>
+        <li><b>Ceny netto na wierzchu</b>Przy każdym produkcie cena brutto i netto.</li>
+        <li><b>Zamówienie przez telefon</b>pon.-pt. 8:00-16:00.</li>
+        <li><b>Większa ilość</b>Zapytaj o cenę e-mailem: <a href="mailto:polimet3@wp.pl">polimet3@wp.pl</a> albo telefonicznie.</li>
+      </ul>
+    </section>
+    <section class="sek">
+      <div class="sek__g"><h2 class="h2">Polecane produkty</h2></div>
+      <ul class="karty" data-polecane></ul>
+    </section>
+
+  </main>
+</div>
+<div class="pasek-koszyka" data-pasek-koszyka role="region" aria-label="Szybki zakup" hidden></div>
+<script>PMstart();</script>
+<footer class="stopka">
+  <div class="w">
+    <form class="nl" data-newsletter data-tryb="zapisz" novalidate>
+      <div class="nl__t"><p class="nl__h">Promocje i nowości z hurtowni</p><p data-nl-opis>E-mail, gdy pojawi się promocja albo nowy towar. Wypisać się możesz w każdej chwili.</p>
+        <button class="nl__tryb" type="button" data-nl-tryb>Chcesz się wypisać?</button></div>
+      <div class="nl__f"><label class="ukryte" for="nl-email">Adres e-mail</label><input id="nl-email" type="email" name="email" autocomplete="email" placeholder="twoj@email.pl" required><button class="btn btn--s" type="submit">Zapisz się</button>
+      <label class="nl__zg"><input type="checkbox" name="zgoda_newsletter_marketing" value="1" required><span>Zgadzam się na przetwarzanie mojego e-maila przez POLIMET Góral Krzysztof w celu wysyłki newslettera.</span></label>
+      <label class="nl__zg"><input type="checkbox" name="zgoda_newsletter_info_handlowa" value="1" required><span>Zgadzam się na otrzymywanie informacji handlowych drogą elektroniczną. Zgody mogę wycofać w każdej chwili.</span></label>
+      <p class="nl__wynik" data-nl-wynik role="status"></p></div>
+    </form>
+    <div class="stopka__w">
+      <div class="stopka__firma">
+        <img src="img/logo-polimet.png" alt="Polimet" width="152" height="40">
+        <p>Hurtownia lin, łańcuchów i osprzętu w Policach, od 1999 r.</p>
+        <a class="stopka__oc" href="https://www.google.com/maps?cid=14561847575084938255"><span class="op-gw" aria-hidden="true">★★★★★</span><span><b>5,0</b> z 46 opinii w Google</span></a>
+        <a class="stopka__oc" href="https://allegro.pl/uzytkownik/polimet-police/oceny"><span>Oceny na Allegro, od 2008 r.</span></a>
+        <ul class="social" aria-label="Polimet w mediach społecznościowych">
+          <li><a class="social__a social__a--fb" href="https://www.facebook.com/Polimet1" target="_blank" rel="noopener"><span class="social__ik" aria-hidden="true">f</span>Facebook</a></li>
+          <li><a class="social__a social__a--yt" href="https://www.youtube.com/channel/UCraJZ-bznx1qrCGjzczqj8Q" target="_blank" rel="noopener"><span class="social__ik" aria-hidden="true"></span>YouTube</a></li>
+        </ul>
+      </div>
+      <nav class="stopka__kol" aria-label="Kategorie w stopce">
+        <p class="stopka__tytul">Kategorie</p>
+        <ul><li><a href="kategoria.html?id=22">Łańcuchy śniegowe</a></li><li><a href="kategoria.html?id=1">Łańcuchy</a></li><li><a href="kategoria.html?id=9">Liny</a></li><li><a href="kategoria.html?id=16">Haki</a></li><li><a href="kategoria.html?id=18">Szekle</a></li><li><a href="kategoria.html?id=28">Ogniwa zawiesiowe</a></li><li><a href="zestawy.html">Zestawy</a></li></ul>
+      </nav>
+      <nav class="stopka__kol" aria-label="Informacje o zakupach">
+        <p class="stopka__tytul">Zakupy</p>
+        <ul><li><a href="strona.html?id=16">Zasady wysyłki</a></li><li><a href="strona.html?id=19">Płatności</a></li>
+        <li><a href="strona.html?id=22">Zwroty i odstąpienie od umowy</a></li><li><a href="#" data-demo>Regulamin</a></li><li><a href="#" data-demo>Polityka prywatności</a></li></ul>
+      </nav>
+      <div class="stopka__kol">
+        <p class="stopka__tytul">Odbiór osobisty</p>
+        <p>ul. Galla Anonima 3a<br>72-010 Police</p>
+        <p><span class="stopka__et">Godziny odbioru</span><br>pon.-pt. 9:00-16:00</p>
+        <p><a class="stopka__mapa" href="https://www.google.com/maps?cid=14561847575084938255">Mapa i dojazd</a></p>
+      </div>
+      <div class="stopka__kontakt">
+        <p class="stopka__tytul">Zamówienia telefoniczne</p>
+        <a class="stopka__tel" href="tel:+48698653508">698 653 508</a>
+        <a class="stopka__mail" href="mailto:polimet3@wp.pl">polimet3@wp.pl</a>
+        <p><span class="stopka__et">Telefon i e-mail</span><br><span class="nw">pon.-pt. 8:00-16:00</span></p>
+      </div>
+    </div>
+    <div class="stopka__dol">
+      <p>© 1999–2026 POLIMET Góral Krzysztof, ul. Galla Anonima 3, 72-010 Police, NIP 851-118-78-19</p>
+      <ul><li><a href="#" data-demo>Regulamin</a></li><li><a href="#" data-demo>Polityka prywatności</a></li><li><a href="#" data-demo>Ustawienia cookies</a></li></ul>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
