@@ -222,9 +222,11 @@ window.PMstart = function () {
 
   /* ---------- dobór łańcuchów śniegowych po rozmiarze opony ---------- */
   function rozmiar(p) {
-    var m = p.n.match(/(\d{3})\s*\/\s*(\d{2,3})\s*[xX]\s*R?\s*(\d{2})\b/) || p.n.match(/(\d{3})\s*[xX]\s*R?\s*(\d{2})\b/);
+    // felga z połówką cala (22,5 / 22.5 / 17,5 w oponach ciężarowych) jako osobny rozmiar, zapis z przecinkiem
+    var m = p.n.match(/(\d{3})\s*\/\s*(\d{2,3})\s*[xX]\s*R?\s*(\d{2}(?:[.,]5)?)(?![\d.,]*\d)/) || p.n.match(/(\d{3})\s*[xX]\s*R?\s*(\d{2}(?:[.,]5)?)(?![\d.,]*\d)/);
     if (!m) return null;
-    return m.length === 4 ? { s: m[1], p: m[2], f: m[3] } : { s: m[1], p: '', f: m[2] };
+    var f = (m.length === 4 ? m[3] : m[2]).replace('.', ',');
+    return m.length === 4 ? { s: m[1], p: m[2], f: f } : { s: m[1], p: '', f: f };
   }
   var sniezne = produktyKat('22').filter(function (p) { return rozmiar(p); });
   function lancuchy(n) { return n + ' ' + (n === 1 ? 'łańcuch' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 'łańcuchy' : 'łańcuchów'); }
@@ -238,13 +240,13 @@ window.PMstart = function () {
     function opcje() {
       ['s', 'p', 'f'].forEach(function (k) {
         var w = {}; zb.forEach(function (p) { var r = rozmiar(p); if (r[k] && pasuje(r, k)) w[r[k]] = 1; });
-        var lista = Object.keys(w).sort(function (a, b) { return a - b; });
+        var lista = Object.keys(w).sort(function (a, b) { return parseFloat(a.replace(',', '.')) - parseFloat(b.replace(',', '.')); });
         pola[k].innerHTML = '<option value="">' + puste[k] + '</option>' +
           lista.map(function (v) { return '<option value="' + v + '"' + (v === stan[k] ? ' selected' : '') + '>' + v + '</option>'; }).join('');
         pola[k].classList.toggle('pusty', !stan[k]);
       });
       var wybrano = stan.s || stan.p || stan.f, ile = zb.filter(function (p) { return pasuje(rozmiar(p)); }).length;
-      var rozm = (stan.s || '') + (stan.p ? '/' + stan.p : '') + (stan.f ? ' R' + stan.f : '');
+      var rozm = ((stan.s || '') + (stan.p ? '/' + stan.p : '') + (stan.f ? ' R' + stan.f : '')).trim();
       if (btn) { btn.disabled = wybrano && !ile; btn.textContent = !wybrano ? 'Pokaż łańcuchy' : ile ? 'Pokaż ' + lancuchy(ile) : 'Brak tego rozmiaru'; }
       if (czysc) czysc.hidden = !wybrano;
       var dopisek = wybrano && bezRozm ? ' Jeszcze ' + lancuchy(bezRozm) + ' ma rozmiar zapisany inaczej (np. 7,00x15), zobaczysz je po wyczyszczeniu rozmiaru.' : '';
@@ -735,7 +737,11 @@ window.PMstart = function () {
     var liny = produktyKat('9').filter(function (x) { return /^Lina stalowa/.test(x.n) && !/pętelk/i.test(x.n) && srednica(x); }); // lina z pętelkami ma już zakończenia
     var kausze = produktyKat('31'), zaciski = produktyKat('20').filter(function (x) { return /kabłąkowy EN13411-5/.test(x.n); });
     var szekle = PM.prod.filter(function (x) { return /^Szekla podłużna klasy 6/.test(x.n); });
-    var sruby = produktyKat('101').filter(function (x) { return /^Śruba rzymska/.test(x.n); });
+    // śruby rzymskie i łączniki śrubowe z zakończeniami (oko, hak, szekla); bez wersji do spawania i samych nakrętek napinających
+    var typSruby = function (x) { return x.n.replace(/\s*-\s*M\d+\b.*$/, ''); }; // „Łącznik śrubowy dwustronny oko - hak”, rozmiar osobno
+    var gwint = function (x) { var m = x.n.match(/\bM(\d+)\b/); return m ? +m[1] : 0; };
+    var sruby = produktyKat('101').filter(function (x) { return /^(Śruba rzymska|Łącznik śrubowy)/.test(x.n) && !/do spawania/i.test(x.n); })
+      .sort(function (a, b) { var ga = typSruby(a), gb = typSruby(b); return ga === gb ? gwint(a) - gwint(b) : ga.localeCompare(gb, 'pl'); });
     var start = ma(P, URLP.get('lina'));
     if (!start || liny.indexOf(start) < 0) start = liny.filter(function (x) { return srednica(x) === 5; }).sort(function (a, b) { return a.c * a.min - b.c * b.min; })[0] || liny[0];
     var grupy = function (lista, fn) { var g = {}; lista.forEach(function (x) { var k = fn(x); (g[k] = g[k] || []).push(x); }); return g; };
@@ -747,7 +753,7 @@ window.PMstart = function () {
       '<label class="kf__pole kf__pole--szer">Lina<select data-k-lina>' + opcje(liny, function (x) { var k = PM.kat[katProduktu(x)]; return k ? k.n : 'Liny'; }, start, function (x) { return x.n.replace(/^Lina stalowa\s*/, ''); }) + '</select></label>' +
       '<fieldset class="kf__typ kf__typ--pion"><legend>Do czego</legend><div class="przel"><label><input type="radio" name="kf-typ" value="szekla" checked>Mocowanie (szekla)</label><label><input type="radio" name="kf-typ" value="sruba">Odciąg (śruba rzymska)</label><label><input type="radio" name="kf-typ" value="bez">Sam osprzęt</label></div></fieldset>' +
       '<label class="kf__pole" data-k-szekla-p>Szekla, dobierz do obciążenia<select data-k-szekla><option value="">wybierz udźwig</option>' + szekle.map(function (x) { return '<option value="' + x.id + '">' + esc(x.n.replace(/^Szekla podłużna klasy 6 - obciążenie\s*/, '')) + ' (' + zl(x.c) + ')</option>'; }).join('') + '</select></label>' +
-      '<label class="kf__pole" data-k-sruba-p hidden>Śruba rzymska<select data-k-sruba><option value="">wybierz śrubę</option>' + opcje(sruby, function (x) { return x.n.split(' - ')[0]; }, null, function (x) { return x.n.split(' - ').slice(1).join(' - ') || x.n; }) + '</select></label>' +
+      '<label class="kf__pole" data-k-sruba-p hidden>Śruba rzymska<select data-k-sruba><option value="">wybierz śrubę</option>' + opcje(sruby, typSruby, null, function (x) { return x.n.slice(typSruby(x).length).replace(/^\s*-\s*/, '') || x.n; }) + '</select></label>' +
       '</div><ul class="kf__lista" data-k-lista></ul><div class="kf__dol"><p class="kf__suma" data-k-suma aria-live="polite"></p><button class="btn btn--k" type="button" data-k-dodaj>Dodaj zestaw do koszyka</button></div>' +
       '<p class="kf__uwaga">Szeklę i śrubę rzymską dobierz do obciążenia roboczego. Nie wiesz jakie? Zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p>';
     var ilosci = {};
@@ -789,7 +795,9 @@ window.PMstart = function () {
 
     // zawiesie na wymiar: zapytanie, bo gotowe zawiesie składa i oznacza sprzedawca
     var lancZ = PM.prod.filter(function (x) { return /^Łańcuch zawiesiowy ECOAT \| klasy 10/.test(x.n); });
+    // zawiesie łańcuchowe na wymiar: sekcja wyłączona, dopóki Polimet nie sprzedaje zawiesi łańcuchowych (klient 10.11.2026)
     var zw = $('[data-konfig-zaw]');
+    if (zw) {
     zw.innerHTML = '<form class="kf" data-zaw novalidate><div class="kf__pola">' +
       '<fieldset class="kf__typ"><legend>Liczba cięgien</legend><div class="przel"><label><input type="radio" name="ciegna" value="1" checked>1 cięgno</label><label><input type="radio" name="ciegna" value="2">2 cięgna</label><label><input type="radio" name="ciegna" value="4">4 cięgna</label></div></fieldset>' +
       '<label class="kf__pole">Łańcuch klasy 10<select name="lancuch">' + lancZ.map(function (x) { return '<option>' + srednica(x) + ' mm</option>'; }).join('') + '</select></label>' +
@@ -811,6 +819,7 @@ window.PMstart = function () {
       w.textContent = 'Otwieram e-mail z zapytaniem do Polimetu. Jeśli się nie otworzy, zadzwoń: ' + PM.firma.telTxt + '.'; w.className = 'kf__w ok';
       location.href = 'mailto:' + PM.firma.mail + '?subject=' + encodeURIComponent('Zapytanie: zawiesie łańcuchowe na wymiar') + '&body=' + encodeURIComponent(opisZ() + (fz.opis.value ? '\nZastosowanie: ' + fz.opis.value : '') + '\nKontakt: ' + k.value);
     });
+    }
   }
 
   if (cl.contains('str-potw')) {
