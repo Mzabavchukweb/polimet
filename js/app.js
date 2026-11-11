@@ -125,6 +125,15 @@ window.PMstart = function () {
     return '<form class="dodaj" data-dodaj="' + p.id + '" novalidate>' + ilosc(idPola, p.min, p.min, 'Ilość, ' + p.jm, p.kr) +
       '<button class="btn btn--s" type="submit">' + (przycisk || 'Do koszyka') + '</button></form>';
   }
+  // karta produktu na liście kategorii i wyszukiwania (11.11: siatka kart zamiast długich wierszy)
+  function kartaListy(p) {
+    var min = p.min > 1 ? 'min. ' + p.min + ' ' + p.jm.replace(/\.$/, '') + ' (' + zl(p.c * p.min) + ')' : '';
+    return '<li class="kp kp--lista"><a class="kp__img" href="produkt.html?id=' + p.id + '" tabindex="-1" aria-hidden="true">' + img(p.imgm || p.img, '', 400, 300) + '</a>' +
+      '<a class="kp__n" href="produkt.html?id=' + p.id + '">' + tw(p.n) + '</a><span class="w-kosz" data-wk="' + p.id + '"></span>' +
+      '<p class="kp__dost">' + (p.dost ? '<span class="ok ok-kropka">Dostępny</span>' + (p.czas ? ', wysyłka ' + esc(p.czas) : '') : '<span class="brak-kropka">Chwilowo niedostępny</span>') + '</p>' +
+      '<p class="kp__ceny"><span class="cena">' + zl(p.c) + '<small>/ ' + p.jm + '</small></span><span class="netto">' + zl(p.cn) + ' netto</span>' + (min ? '<span class="kp__min">' + min + '</span>' : '') + '</p>' +
+      '<div class="kp__dol">' + (p.dost ? '<form data-dodaj="' + p.id + '"><input type="hidden" value="' + p.min + '"><button class="btn btn--c" type="submit">Do koszyka</button></form>' : powiadomLink(p)) + '</div></li>';
+  }
   function wiersz(p) {
     var meta = [p.kod ? 'Kod ' + esc(p.kod) : '', p.min > 1 ? 'min. ' + p.min + ' ' + p.jm.replace(/\.$/, '') + (p.kr > 1 && p.kr !== p.min ? ', co ' + p.kr : '') + ' (' + zl(p.c * p.min) + ')' : '', p.dost ? '<span class="ok ok-kropka">Dostępny</span>' : '<span class="brak-kropka">Chwilowo niedostępny</span>', p.dost && p.czas ? 'wysyłka ' + esc(p.czas) : ''].filter(Boolean).join(', ');
     return '<li class="wiersz">' +
@@ -424,7 +433,7 @@ window.PMstart = function () {
       else if (sort === 'n') w.sort(function (a, b) { return a.n.localeCompare(b.n, 'pl', { numeric: true }); });
       else w.sort(function (a, b) { return (b.dost ? 1 : 0) - (a.dost ? 1 : 0); }); // domyślnie dostępne najpierw, kolejność sklepu zostaje
       $('[data-ile]').textContent = liczbaProd(w.length);
-      $('[data-lista]').innerHTML = w.length ? w.slice(0, ile).map(wiersz).join('') : '<li class="pusto pusto--ilu">' + ILU_PUSTO + '<p>Nic nie pasuje. Zmień filtry, sprawdź pisownię albo zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p></li>';
+      $('[data-lista]').innerHTML = w.length ? w.slice(0, ile).map(kartaListy).join('') : '<li class="pusto pusto--ilu">' + ILU_PUSTO + '<p>Nic nie pasuje. Zmień filtry, sprawdź pisownię albo zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p></li>';
       $('[data-wiecej]').hidden = w.length <= ile;
       $('[data-wiecej] button').textContent = 'Pokaż kolejne ' + Math.min(NA_STRONE, w.length - ile) + ' z ' + (w.length - ile);
       oznacz();

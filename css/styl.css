@@ -1084,10 +1084,11 @@ small.il{display:block;margin-top:2px;font-size:14px;color:var(--szary)}
 /* ======================= 11.11: ILUSTRACJE TECHNICZNE =======================
    Jeden styl: cienka linia, kreskowanie, jeden czerwony akcent. Tła rysunków = tła sekcji, żeby nie było ramek. */
 /* dobór łańcuchów: bok opony z zaznaczonym miejscem rozmiaru, zamiast zdjęcia w tle */
-.sezon{background:#19212f;grid-template-columns:minmax(0,1fr) minmax(300px,42%);gap:40px;align-items:center}
+.sezon{background:#192030;grid-template-columns:minmax(0,1fr) minmax(300px,42%);gap:40px;align-items:center}
 .sezon::after{display:none}
 .sezon__ilu{margin:0;min-width:0}
-.sezon__ilu img{display:block;width:100%;height:auto;border-radius:8px}
+/* tło sekcji = tło rysunku (#192030); brzegi rysunku miękko wygaszone, żeby nie było widać prostokąta */
+.sezon__ilu img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
 .sezon__ilu figcaption{margin-top:10px;font-size:15px;line-height:1.4;color:#d3d8e2;text-align:center}
 .sezon__ilu b{color:#fff;white-space:nowrap}
 @media (max-width:1080px){.sezon{grid-template-columns:1fr}.sezon__ilu{max-width:520px}}
@@ -1117,3 +1118,24 @@ li.pusto--ilu{list-style:none}
 .pusto--koszyk{padding:40px 0 56px}
 .pusto--koszyk p{color:var(--grafit)}
 .pusto--koszyk p + p{margin-top:16px}
+
+/* 11.11: lista produktów w kategorii i wyszukiwaniu jako siatka kart (jak „Polecane”), cena brutto i netto przy przycisku */
+.karty--lista{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:0;padding:0;list-style:none}
+@media (min-width:1081px){.karty.karty--lista{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}}
+.kp--lista .kp__n{margin-top:12px;font-size:16px}
+.kp--lista .kp__dost .brak-kropka{color:var(--szary)}
+.kp__ceny{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;margin:12px 4px 0}
+.kp__ceny .cena{font-size:22px}
+.kp__ceny .netto{font-size:14px;color:var(--szary)}
+.kp__min{flex-basis:100%;font-size:14px;color:var(--szary)}
+.kp--lista .kp__dol{padding-top:12px}
+.kp--lista .kp__dol form,.kp--lista .kp__dol .btn-pow{flex:1 1 100%}
+.kp--lista .kp__dol .btn{width:100%}
+.karty--lista > .pusto{grid-column:1/-1}
+@media (max-width:640px){
+  .karty.karty--lista{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .kp--lista .kp__n{font-size:15px;line-height:1.3}
+  .kp__ceny{margin-top:10px}
+  .kp__ceny .cena{font-size:19px}
+  .kp__ceny .netto{flex-basis:100%;font-size:14px}
+}
