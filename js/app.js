@@ -417,7 +417,15 @@ window.PMstart = function () {
       }
       var top = sciezka(id)[0]; $$('.menu a[data-kat="' + top.id + '"], .katpasek a[data-kat="' + top.id + '"]').forEach(function (a) { a.setAttribute('aria-current', 'true'); });
       lista = produktyKat(id);
-      if (k.dol) { var od = $('[data-opis-dol]'); od.hidden = false; od.innerHTML = '<h2>' + tw(k.n) + ': jak wybrać</h2>' + k.dol.split('\n').map(function (l) { return '<p>' + tw(l) + '</p>'; }).join(''); }
+      if (k.dol) {
+        // opis kategorii: krótkie linie bez kropki to śródtytuły, „Nazwa: opis” z wyróżnioną nazwą, reszta to akapity
+        var od = $('[data-opis-dol]'); od.hidden = false;
+        od.innerHTML = '<h2>' + tw(k.n) + ': jak wybrać</h2><div class="kat-opis__t">' + k.dol.split('\n').filter(function (l) { return l.trim(); }).map(function (l) {
+          if (l.length < 70 && !/[.:;,]$/.test(l.trim())) return '<h3>' + tw(l) + '</h3>';
+          var m = l.match(/^([^:„"]{3,45}):\s(.+)$/);
+          return m ? '<p><b>' + tw(m[1]) + ':</b> ' + tw(m[2]) + '</p>' : '<p>' + tw(l) + '</p>';
+        }).join('') + '</div>';
+      }
       if (top.id === '22' && lista.filter(function (x) { return rozmiar(x); }).length >= lista.length / 2) { var sek = $('[data-dobor]'); sek.hidden = false; dob = dobor(sek, function () { ile = NA_STRONE; rysuj(); }, lista); }
       else filtr = filtry($('[data-filtry]'), lista, function () { ile = NA_STRONE; rysuj(); });
     } else {
