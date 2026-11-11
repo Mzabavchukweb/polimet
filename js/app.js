@@ -450,6 +450,8 @@ window.PMstart = function () {
     if (bracia.length > 1) {
       var sl = bracia.map(function (x) { return x.n.split(' '); }), w = 0;
       while (sl.every(function (s) { return s[w] !== undefined && s[w] === sl[0][w]; }) && w < sl[0].length - 1) w++;
+      // „klasy 8” i „klasy 10” różnią się klasą: słowo „klasy” zostaje w wierszu, inaczej wychodzi samo „10 - 8 mm”
+      if (w > 0 && /^(klasy|klasa|kl\.?)$/i.test(sl[0][w - 1])) w--;
       wspolny = sl[0].slice(0, w).join(' ').replace(/[\s|,-]+$/, '');
     }
     function reszta(n) { var r = wspolny ? n.slice(wspolny.length).replace(/^[\s|,-]+/, '') : n; return r || n; }
