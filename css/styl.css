@@ -1253,7 +1253,7 @@ li.pusto--ilu{list-style:none}
   .firmy{padding:22px 16px;gap:16px}
   .firmy__ilu{display:none}
   .firmy .firmy__lista{grid-template-columns:1fr 1fr}
-  .firmy__lista li,.firmy__lista li:nth-child(-n+2),.firmy .firmy__lista li{padding:12px;font-size:13px;line-height:1.4;border-top:1px solid var(--rysa);border-left:0}
+  .firmy__lista li,.firmy__lista li:nth-child(-n+2),.firmy .firmy__lista li{padding:12px;font-size:14px;line-height:1.4;border-top:1px solid var(--rysa);border-left:0}
   .firmy__lista li:nth-child(-n+2){border-top:0}
   .firmy__lista li:nth-child(even){border-left:1px solid var(--rysa)}
   .firmy__lista b{font-size:15px}
