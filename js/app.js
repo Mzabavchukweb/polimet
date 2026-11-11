@@ -748,7 +748,7 @@ window.PMstart = function () {
     if (!start || liny.indexOf(start) < 0) start = liny.filter(function (x) { return srednica(x) === 5; }).sort(function (a, b) { return a.c * a.min - b.c * b.min; })[0] || liny[0];
     var grupy = function (lista, fn) { var g = {}; lista.forEach(function (x) { var k = fn(x); (g[k] = g[k] || []).push(x); }); return g; };
     var opcje = function (lista, fn, wybrany, etyk) {
-      var g = grupy(lista, fn); return Object.keys(g).map(function (k) { return '<optgroup label="' + esc(k) + '">' + g[k].map(function (x) { return '<option value="' + x.id + '"' + (x === wybrany ? ' selected' : '') + '>' + esc(etyk(x)) + ' (' + zl(x.c) + ' / ' + x.jm.replace(/\.$/, '') + ')</option>'; }).join('') + '</optgroup>'; }).join('');
+      var g = grupy(lista, fn); return Object.keys(g).map(function (k) { return '<optgroup label="' + esc(k) + '">' + g[k].map(function (x) { return '<option value="' + x.id + '"' + (x === wybrany ? ' selected' : '') + '>' + esc(etyk(x)) + ' (' + zl(x.c) + ' / ' + x.jm.replace(/\.$/, '') + (x.dost ? '' : ', niedostępna') + ')</option>'; }).join('') + '</optgroup>'; }).join('');
     };
     var kz = $('[data-konfig]'), stan = { lina: start, typ: 'szekla' };
     kz.innerHTML = '<div class="kf__pola">' +
