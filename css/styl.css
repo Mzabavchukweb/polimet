@@ -8,7 +8,7 @@
   --cynk:#eceef1;--cynk2:#f5f6f8;--rysa:#dde1e6;--pole:#c3cad3;
   --indygo:#2f3584;--indygo2:#e9eaf5;--czerwien:#cf2f3b;--ok:#23704a;
   --f:'Barlow','Barlow Zapas',system-ui,sans-serif;--t:'Barlow Semi Condensed','Barlow Semi Zapas','Barlow',sans-serif;
-  --szer:1280px;--r:6px;
+  --szer:1800px;--r:6px;
 }
 *,*::before,*::after{box-sizing:border-box}
 [hidden]:not(.licznik){display:none!important}
@@ -993,12 +993,9 @@ small.il{display:block;margin-top:2px;font-size:14px;color:var(--szary)}
 }
 @media (max-width:374px){.pasek__lista li:nth-child(3){display:none}}
 
-/* komputer: nagłówek z wyszukiwarką i koszykiem przyklejony przy przewijaniu */
+/* komputer: nagłówek przewija się razem ze stroną (11.11: bez przyklejania) */
 @media (min-width:1081px){
   .pasek__w{height:42px;padding-top:0;padding-bottom:0}
-  .gora{position:sticky;top:-42px;z-index:30;background:#fff}
-  .gora::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:8px;background:linear-gradient(rgba(27,33,48,.07),rgba(27,33,48,0));pointer-events:none}
-  html{scroll-padding-top:170px}
 }
 
 /* przypomnienie o koszyku (strona główna, gdy coś w nim jest) */
@@ -1030,3 +1027,35 @@ small.il{display:block;margin-top:2px;font-size:14px;color:var(--szary)}
 .kup__rozm select{display:block;width:100%;margin-top:6px;font-weight:400}
 .kup__pyt{margin:16px 0 0;padding:12px 14px;border-radius:8px;background:var(--cynk2);font-size:15px;color:var(--grafit)}
 .kup__pyt a{font-weight:600;color:var(--indygo);white-space:nowrap}
+
+/* 11.11: większy hero na stronie głównej. Na komputerze wychodzi poza kontener prawie na całą szerokość okna
+   (do 1736 px), zajmuje pierwszy ekran, tekst zostaje w linii z logo; większy nagłówek, opis, przyciski i liczby. */
+@media (min-width:1081px){
+  /* kontener ma teraz 1800 px, więc hero nie wychodzi już poza niego (--wy zostaje 0) */
+  .str-glowna{--wy:0px}
+  .str-glowna .start{
+    min-height:clamp(600px, calc(100vh - 240px), 820px)}
+  .str-glowna .start__tekst{margin:auto 0;padding:56px 48px 48px 64px;max-width:1080px}
+  .str-glowna .start h1{font-size:clamp(60px, 4.7vw, 86px);line-height:1;letter-spacing:-.018em}
+  .str-glowna .start__haslo{font-size:18px;margin-bottom:18px}
+  .str-glowna .start__lead{margin-top:22px;font-size:21px;line-height:1.55;max-width:44ch}
+  .str-glowna .start__cta{margin-top:34px;gap:14px}
+  .str-glowna .start__cta .btn{min-height:58px;padding:0 32px;font-size:18px}
+  .str-glowna .start__oc{margin-top:24px;font-size:17px}
+  .str-glowna .start__oc .op-gw{font-size:22px}
+  .str-glowna .start__foto{width:62%}
+  .str-glowna .start .start__fakty{padding:0 calc(max(64px, var(--wy)) - 32px)}
+  .str-glowna .start__fakty li,.str-glowna .start__fakty li:first-child{padding:24px 32px}
+  .str-glowna .start__fakty li:first-child{border-left:0}
+  .str-glowna .start .start__fakty b{font-size:34px}
+  .str-glowna .start__fakty li{font-size:15px}
+}
+@media (max-width:640px){
+  .str-glowna .start__tekst{padding:40px 22px 30px}
+  .str-glowna .start h1{font-size:38px;line-height:1.04}
+  .str-glowna .start__lead{font-size:17px;margin-top:16px}
+  .str-glowna .start__cta .btn{min-height:56px;font-size:17px}
+  .str-glowna .start .start__fakty b{font-size:24px}
+}
+/* 11.11: przy szerszym kontenerze konfigurator zestawu zostaje w wygodnej szerokości */
+[data-konfig]{max-width:1240px}
