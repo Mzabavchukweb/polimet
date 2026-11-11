@@ -8,7 +8,7 @@ window.PMstart = function () {
   PM.prod.forEach(function (p) { p.kr = p.kr || 1; p.min = Math.ceil((p.min || 1) / p.kr) * p.kr; });
   var URLP = new URLSearchParams(location.search);
   PM.firma.telTxt = PM.firma.tel.replace(/^\+48\s*/, '');
-  var NA_STRONE = 30;
+  var NA_STRONE = window.innerWidth < 641 ? 20 : 30; // telefon: krótsza pierwsza porcja listy
 
   function zl(n) { return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0') + '\u00a0zł'; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -130,7 +130,7 @@ window.PMstart = function () {
     var min = p.min > 1 ? 'min. ' + p.min + ' ' + p.jm.replace(/\.$/, '') + ' (' + zl(p.c * p.min) + ')' : '';
     return '<li class="kp kp--lista"><a class="kp__img" href="produkt.html?id=' + p.id + '" tabindex="-1" aria-hidden="true">' + img(p.imgm || p.img, '', 400, 300) + '</a>' +
       '<a class="kp__n" href="produkt.html?id=' + p.id + '">' + tw(p.n) + '</a><span class="w-kosz" data-wk="' + p.id + '"></span>' +
-      '<p class="kp__dost">' + (p.dost ? '<span class="ok ok-kropka">Dostępny</span>' + (p.czas ? ', wysyłka ' + esc(p.czas) : '') : '<span class="brak-kropka">Chwilowo niedostępny</span>') + '</p>' +
+      '<p class="kp__dost">' + (p.dost ? '<span class="ok ok-kropka">Dostępny</span>' + (p.czas ? '<span class="kp__wys">, wysyłka ' + esc(p.czas) + '</span>' : '') : '<span class="brak-kropka">Chwilowo niedostępny</span>') + '</p>' +
       '<p class="kp__ceny"><span class="cena">' + zl(p.c) + '<small>/ ' + p.jm + '</small></span><span class="netto">' + zl(p.cn) + ' netto</span>' + (min ? '<span class="kp__min">' + min + '</span>' : '') + '</p>' +
       '<div class="kp__dol">' + (p.dost ? '<form data-dodaj="' + p.id + '"><input type="hidden" value="' + p.min + '"><button class="btn btn--c" type="submit">Do koszyka</button></form>' : powiadomLink(p)) + '</div></li>';
   }
@@ -425,6 +425,11 @@ window.PMstart = function () {
           var m = l.match(/^([^:„"]{3,45}):\s(.+)$/);
           return m ? '<p><b>' + tw(m[1]) + ':</b> ' + tw(m[2]) + '</p>' : '<p>' + tw(l) + '</p>';
         }).join('') + '</div>';
+        if (od.querySelector('.kat-opis__t').children.length > 3) {
+          od.classList.add('kat-opis--zwiniety');
+          od.insertAdjacentHTML('beforeend', '<button class="kat-opis__wiecej" type="button" aria-expanded="false">Czytaj cały poradnik</button>');
+          $('.kat-opis__wiecej', od).addEventListener('click', function () { var z = od.classList.toggle('kat-opis--zwiniety'); this.setAttribute('aria-expanded', !z); this.textContent = z ? 'Czytaj cały poradnik' : 'Zwiń'; });
+        }
       }
       if (top.id === '22' && lista.filter(function (x) { return rozmiar(x); }).length >= lista.length / 2) { var sek = $('[data-dobor]'); sek.hidden = false; dob = dobor(sek, function () { ile = NA_STRONE; rysuj(); }, lista); }
       else filtr = filtry($('[data-filtry]'), lista, function () { ile = NA_STRONE; rysuj(); });
@@ -499,11 +504,12 @@ window.PMstart = function () {
     }
     var opis = p.opis ? p.opis.split('\n').map(function (l) { return '<p>' + tw(l) + '</p>'; }).join('') : '';
     $('[data-karta]').innerHTML =
-      '<div class="karta__tyt"><h1>' + tw(p.n) + '</h1><p class="karta__kod">' + (p.kod ? 'Kod produktu: ' + esc(p.kod) : '') + '</p></div>' +
+      '<div class="karta__tyt"><h1>' + tw(p.n) + '</h1><p class="karta__kod">' + (p.kod ? '<span>Kod produktu: ' + esc(p.kod) + '</span>' : '') +
+      (window.PM_OPINIE ? '<a class="kup__oc" href="' + PM_OPINIE.link + '"><span class="op-gw" aria-hidden="true">★★★★★</span> ' + PM_OPINIE.ocena.toFixed(1).replace('.', ',') + ' z ' + PM_OPINIE.ile + ' opinii o sklepie w Google</a>' : '') + '</p></div>' +
       '<figure class="karta__img">' + img(p.img, p.n, 600, 600, false) + '</figure>' +
       '<div class="karta__det">' +
       (osprzet.length ? '<section class="blok osprzet"><h2>Osprzęt do liny ' + dLiny + ' mm</h2><p class="rozm__wsp">Kausza, zacisk i tuleja w rozmiarze tej liny. <a href="zestawy.html?lina=' + p.id + '#lina">Złóż zestaw z tą liną</a>, z szeklą albo śrubą rzymską.</p><ul class="osprzet__l">' + osprzet.map(function (x) {
-        return '<li class="osp"><a class="osp__img" href="produkt.html?id=' + x.id + '" tabindex="-1" aria-hidden="true">' + img(x.img, '', 120, 96) + '</a><div><a class="osp__n" href="produkt.html?id=' + x.id + '">' + tw(x.n) + '</a>' +
+        return '<li class="osp"><a class="osp__img" href="produkt.html?id=' + x.id + '" tabindex="-1" aria-hidden="true">' + img(x.imgm || x.img, '', 120, 96) + '</a><div><a class="osp__n" href="produkt.html?id=' + x.id + '">' + tw(x.n) + '</a>' +
           '<p class="osp__c"><span class="cena">' + zl(x.c) + '<small>/ ' + x.jm + '</small></span>' + (x.min > 1 ? '<span class="osp__min">, ' + x.min + ' ' + x.jm.replace(/\.$/, '') + ' za ' + zl(x.c * x.min) + '</span>' : '') + '</p>' +
           '<span class="w-kosz" data-wk="' + x.id + '"></span></div>' +
           (x.dost ? '<form data-dodaj="' + x.id + '" novalidate><input type="hidden" value="' + x.min + '"><button class="btn btn--c" type="submit">Dodaj ' + x.min + ' ' + x.jm.replace(/\.$/, '') + '<span class="ukryte">: ' + esc(x.n) + '</span></button></form>' : powiadomLink(x)) + '</li>';
@@ -516,8 +522,7 @@ window.PMstart = function () {
         var et = wspolny && x.n.indexOf(wspolny) === 0 ? reszta(x.n) : x.n;
         return '<option value="' + x.id + '"' + (x === p ? ' selected' : '') + '>' + esc(et) + ', ' + zl(x.c).replace(/\u00a0/g, ' ') + ' / ' + x.jm.replace(/\.$/, '') + (x.dost ? '' : ' (niedostępny)') + '</option>';
       }).join('') + '</select></label>' : '') +
-      (window.PM_OPINIE ? '<a class="kup__oc" href="' + PM_OPINIE.link + '"><span class="op-gw" aria-hidden="true">★★★★★</span> ' + PM_OPINIE.ocena.toFixed(1).replace('.', ',') + ' z ' + PM_OPINIE.ile + ' opinii w Google</a>' : '') +
-      '<p class="kup__dost">' + (p.dost ? '<span class="ok ok-kropka">Dostępny</span>' + (p.czas ? ', wysyłka ' + esc(p.czas) : '') : '<span class="brak-kropka">Chwilowo niedostępny</span>') + '</p>' +
+            '<p class="kup__dost">' + (p.dost ? '<span class="ok ok-kropka">Dostępny</span>' + (p.czas ? ', wysyłka ' + esc(p.czas) : '') : '<span class="brak-kropka">Chwilowo niedostępny</span>') + '</p>' +
       (p.dost ? '' : '<form class="powiadom" id="powiadom" data-powiadom="' + p.id + '" novalidate><p class="powiadom__t">Napiszemy jeden e-mail, gdy <b>' + tw(p.n) + '</b> wróci na stan. Pytania o termin: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p><p class="powiadom__stan" hidden></p><div class="powiadom__pola"><label class="ukryte" for="pw-email">Adres e-mail</label><span class="powiadom__f"><input id="pw-email" type="email" name="email" autocomplete="email" placeholder="twoj@email.pl" required><button class="btn btn--s" type="submit">Powiadom mnie</button></span><label class="zgoda powiadom__zg"><input type="checkbox" name="przetwarzanie_powiadomienie" value="1" required><span>Zgadzam się na użycie mojego e-maila do jednego powiadomienia o dostępności tego produktu.</span></label></div><p class="powiadom__w" role="status"></p></form>') +
       '<form class="kup__ilosc" data-dodaj-k novalidate' + (p.dost ? '' : ' hidden') + '>' + ilosc('ilosc', p.min, p.min, 'Ilość, ' + p.jm, p.kr) + '<button class="btn btn--k" type="submit">Dodaj do koszyka</button></form>' +
       '<p class="kup__razem" data-razem></p>' + (p.dost && (p.min > 1 || p.kr > 1) ? '<p class="kup__netto">' + (p.kr > 1 && p.kr === p.min ? 'Sprzedaż po ' + p.kr + ' ' + p.jm.replace(/\.$/, '') : 'Minimalnie ' + p.min + ' ' + p.jm.replace(/\.$/, '') + (p.kr > 1 ? ', co ' + p.kr : '')) + '.</p>' : '') + '<p class="kup__gratis" data-gratis></p>' + (p.dost ? '<div class="mini-postep" data-mini aria-hidden="true"><i></i></div>' : '') +
@@ -553,6 +558,11 @@ window.PMstart = function () {
     pk.hidden = false; pk.innerHTML = '<span class="cena">' + zl(p.c) + '<small>/ ' + p.jm + '</small></span>' + (p.dost ? '<button class="btn btn--k" type="button">Dodaj do koszyka</button>' : '<a class="btn btn--s" href="#powiadom">Powiadom o dostępności</a>');
     $('[data-dodaj-k]').addEventListener('submit', function (e) { e.preventDefault(); dodaj(p.id, $('#ilosc').value); potwierdz(e.submitter || $('[data-dodaj-k] button[type=submit]')); });
     if (p.dost) $('button', pk).addEventListener('click', function () { dodaj(p.id, $('#ilosc').value); potwierdz(this); });
+    // telefon: dolny pasek tylko wtedy, gdy główny przycisk „Dodaj do koszyka” jest poza ekranem (bez dwóch przycisków naraz)
+    // (przy szybkim przewinięciu przycisk może „przeskoczyć” ekran, więc liczymy położenie przy każdym przewinięciu)
+    var cel = $('[data-dodaj-k]:not([hidden])') || $('.kup .cena');
+    function pasek() { var r = cel.getBoundingClientRect(); pk.classList.toggle('pasek-koszyka--ukryty', r.bottom > 0); }
+    window.addEventListener('scroll', pasek, { passive: true }); window.addEventListener('resize', pasek); pasek();
     if (!p.dost) { $$('[data-razem], [data-gratis]').forEach(function (e) { e.hidden = true; }); if (location.hash === '#powiadom') setTimeout(function () { $('#pw-email').focus(); }, 50); }
   }
 
