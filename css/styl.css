@@ -162,13 +162,13 @@ label > select,label > input,label > textarea{margin-top:6px;color:var(--stal);f
 /* opis kategorii na dole: spokojny panel poradnika (11.11). Jedna kolumna ok. 75 znaków, śródtytuły oddzielone cienką linią,
    nazwy w „Nazwa: opis” wyróżnione; mniejszy, szary tekst, żeby nie konkurował z produktami. */
 .kat-opis{margin-top:56px;padding:32px 40px 30px;border-radius:10px;background:var(--cynk2);color:var(--grafit);font-size:15px;line-height:1.6}
-.kat-opis h2{max-width:760px;font:600 20px/1.25 var(--t);color:var(--stal);margin:0 0 14px}
-.kat-opis__t{max-width:760px}
+.kat-opis h2{max-width:66ch;font:600 20px/1.25 var(--t);color:var(--stal);margin:0 0 14px}
+.kat-opis__t{max-width:66ch}
 .kat-opis h3{margin:18px 0 6px;padding-top:16px;border-top:1px solid var(--rysa);font:600 16px/1.3 var(--t);color:var(--stal)}
 .kat-opis__t > h3:first-child{margin-top:0;padding-top:0;border-top:0}
 .kat-opis p{margin:0 0 8px}
 .kat-opis p b{font-weight:600;color:var(--stal)}
-@media (max-width:640px){.kat-opis{margin-top:40px;padding:22px 18px 22px}.kat-opis h2{font-size:19px}}
+@media (max-width:640px){.kat-opis{margin-top:40px;padding:22px 18px 22px;font-size:16px}.kat-opis h2{font-size:19px}}
 
 /* karta produktu */
 .karta{display:grid;grid-template-columns:minmax(0,1fr) 380px;grid-template-areas:'t k' 'i k' 'd k';column-gap:48px;align-items:start}
