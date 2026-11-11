@@ -252,7 +252,7 @@ window.PMstart = function () {
       if (btn) { btn.disabled = wybrano && !ile; btn.textContent = !wybrano ? 'Pokaż łańcuchy' : ile ? 'Pokaż ' + lancuchy(ile) : 'Brak tego rozmiaru'; }
       if (czysc) czysc.hidden = !wybrano;
       var dopisek = wybrano && bezRozm ? ' Jeszcze ' + lancuchy(bezRozm) + ' ma rozmiar zapisany inaczej (np. 7,00x15), zobaczysz je po wyczyszczeniu rozmiaru.' : '';
-      if (info) info.innerHTML = !wybrano ? (sekcja.querySelector('.sezon__ilu') ? '' : 'Rozmiar przeczytasz na boku opony, np. 185/65 R15.')
+      if (info) info.innerHTML = !wybrano ? (sekcja.querySelector('.sezon__ilu') ? '' : 'Rozmiar przeczytasz na boku opony, np. 185/65\u00a0R15.')
         : ile ? (btn ? 'Pasuje do ' + rozm + ': ' + lancuchy(ile) + '.' : '<b>' + lancuchy(ile) + '</b> ' + (ile % 10 >= 2 && ile % 10 <= 4 && (ile % 100 < 12 || ile % 100 > 14) ? 'pasują' : 'pasuje') + ' do rozmiaru ' + rozm + '.')
         : 'Nie mamy łańcucha w tym rozmiarze w sklepie. Zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>, sprawdzimy dostępność.';
       if (info && dopisek) info.innerHTML += dopisek;
@@ -402,6 +402,9 @@ window.PMstart = function () {
           return '<li><a href="kategoria.html?id=' + c + '"' + (c === id ? ' aria-current="page"' : '') + '>' + (x.img ? '<span class="podkat__img" aria-hidden="true">' + img(x.img, '', 128, 96) + '</span>' : '') +
             '<span class="podkat__t"><b>' + tw(n) + '</b><span>' + liczbaProd(x.ile) + '</span></span></a></li>';
         }).join('');
+        // telefon: rząd kart przewija się w bok, wybrana podkategoria ma być od razu widoczna
+        var pk = $('[data-podkat]'), akt = $('[aria-current]', pk);
+        if (akt && pk.scrollWidth > pk.clientWidth) pk.scrollLeft = akt.parentNode.offsetLeft - pk.offsetLeft - 16;
       }
       var top = sciezka(id)[0]; $$('.menu a[data-kat="' + top.id + '"], .katpasek a[data-kat="' + top.id + '"]').forEach(function (a) { a.setAttribute('aria-current', 'true'); });
       lista = produktyKat(id);

@@ -125,14 +125,14 @@ label > select,label > input,label > textarea{margin-top:6px;color:var(--stal);f
 .podkat a[aria-current] .podkat__img{background:#fff}
 .podkat a:focus-visible{outline:3px solid var(--indygo);outline-offset:2px}
 @media (max-width:640px){
-  /* telefon: jedna kolumna, pełna nazwa w jednej-dwóch liniach, strzałka z CSS zamiast ikony */
-  .podkat{gap:8px;margin:18px 0}
-  .podkat > li{flex-basis:100%;max-width:none}
-  .podkat a{position:relative;min-height:64px;gap:12px;padding:8px 36px 8px 8px}
-  .podkat a::after{content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;margin-top:-6px;border-right:2px solid var(--szary2);border-bottom:2px solid var(--szary2);transform:rotate(-45deg)}
-  .podkat a[aria-current]::after{border-color:#fff}
-  .podkat__img{width:60px;height:46px}
-  .podkat__t b{font-size:16px;line-height:1.2}
+  /* telefon: przewijany rząd kart z dużym zdjęciem; widać kawałek kolejnej karty, więc wiadomo, że jest ich więcej.
+     Lista jedna pod drugą wypychała dobór rozmiaru i produkty poza pierwszy ekran. */
+  .podkat{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;gap:10px;margin:18px -16px;padding:0 16px 6px;scrollbar-width:none}
+  .podkat::-webkit-scrollbar{display:none}
+  .podkat > li{flex:0 0 41%;max-width:none;scroll-snap-align:start}
+  .podkat a{flex-direction:column;align-items:stretch;gap:8px;min-height:0;padding:8px}
+  .podkat__img{width:100%;height:auto;aspect-ratio:4/3}
+  .podkat__t b{font-size:15px;line-height:1.2}
 }
 .narzedzia{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--rysa);font-size:14px;color:var(--szary)}
 .narzedzia label{display:flex;align-items:center;gap:8px;font-weight:400;color:var(--szary)}
