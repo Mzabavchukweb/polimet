@@ -1302,3 +1302,20 @@ li.pusto--ilu{list-style:none}
 .kup__ilosc{grid-template-columns:auto minmax(0,1fr)}
 .kup__ilosc .btn{min-width:0;padding:0 14px;white-space:nowrap}
 @media (max-width:1280px) and (min-width:1081px){.kup__ilosc .ilosc{grid-template-columns:44px 56px 44px}}
+/* 11.11: nagłówek. Logo większe; na telefonie logo na środku, „Zadzwoń” po lewej, koszyk po prawej
+   (pasek akcji zajmuje cały pierwszy wiersz, logo leży na nim w środkowej kolumnie). */
+.logo img{width:176px}
+@media (max-width:1080px){.logo img{width:164px}}
+@media (max-width:640px){
+  .naglowek__w{grid-template-columns:1fr auto 1fr;row-gap:12px}
+  .naglowek__w .logo{grid-column:2;grid-row:1;position:relative;z-index:1;justify-self:center}
+  .naglowek__w .akcje{grid-column:1/-1;grid-row:1;justify-content:space-between}
+  .naglowek__w .szukaj{grid-column:1/-1;grid-row:2}
+  .naglowek__w .menu-przycisk{grid-column:1/-1;grid-row:3}
+  .logo img{width:146px}
+  .akcje .akcje__tel,.akcje__kosz{font-size:16px;font-weight:600}
+}
+@media (max-width:374px){.logo img{width:118px}.akcje .akcje__tel,.akcje__kosz{font-size:15px}}
+/* tablet: górny pasek nie wychodzi poza ekran (godziny i część haseł chowamy) */
+@media (max-width:900px) and (min-width:641px){.pasek__lista li:nth-child(n+3),.pasek__tel span{display:none}}
+@media (max-width:760px) and (min-width:641px){.pasek__lista li:nth-child(n+2){display:none}}
