@@ -59,7 +59,7 @@
 
     <div class="przyp" data-przyp hidden></div>
     <section class="start">
-      <img class="start__foto" src="img/foto/lina.webp" alt="" width="1800" height="1200" fetchpriority="high">
+      <img class="start__foto" src="img/foto/lina.webp" srcset="img/foto/lina-900.webp 900w, img/foto/lina.webp 1800w" sizes="(min-width: 641px) 62vw, 100vw" alt="" width="1800" height="1200" fetchpriority="high">
       <div class="start__tekst">
         <p class="start__haslo">Polimet, firma która łączy</p>
         <h1>Liny, łańcuchy i&nbsp;osprzęt do&nbsp;zawiesi prosto z&nbsp;hurtowni w&nbsp;Policach</h1>
@@ -76,7 +76,6 @@
     </section>
     <section class="sek opinie" data-opinie aria-label="Opinie klientów w Google"></section>
     <section class="sezon" id="dobor" data-dobor aria-labelledby="dobor-t">
-      <img class="sezon__foto" src="img/foto/snieg.webp" alt="" width="600" height="900" loading="lazy">
       <div class="sezon__tekst">
         <p class="sezon__kiedy">Sezon zimowy</p>
         <h2 id="dobor-t">Łańcuchy śniegowe dobrane do Twojej opony</h2>
@@ -95,6 +94,10 @@
         </form>
         <p class="sezon__pom" data-dobor-ile aria-live="polite"></p>
       </div>
+      <figure class="sezon__ilu">
+        <img src="img/ilustracje/opona-900.webp" srcset="img/ilustracje/opona-900.webp 900w, img/ilustracje/opona-1600.webp 1600w" sizes="(min-width: 1081px) 42vw, 100vw" width="1600" height="1067" alt="Bok opony z zaznaczonym miejscem, w którym jest wytłoczony rozmiar" loading="lazy">
+        <figcaption>Rozmiar jest wytłoczony na boku opony, np. <b>185/65 R15</b></figcaption>
+      </figure>
     </section>
     <section class="sek ogl" data-ogl hidden aria-labelledby="ogl-t"></section>
     <section class="sek detal" aria-labelledby="detal-t">
@@ -115,6 +118,7 @@
         <p class="firmy__lead">Hurtownia z Polic: faktura VAT, ceny netto przy każdym produkcie i zamówienia przez telefon.</p>
         <p class="firmy__cta"><a class="btn btn--s" href="tel:+48698653508">Zadzwoń: 698 653 508</a><a class="btn btn--b" href="mailto:polimet3@wp.pl?subject=Zapytanie%20o%20wi%C4%99ksz%C4%85%20ilo%C5%9B%C4%87">Wyślij zapytanie e-mailem</a></p>
       </div>
+      <figure class="firmy__ilu"><img src="img/ilustracje/hurtownia-700.webp" srcset="img/ilustracje/hurtownia-700.webp 700w, img/ilustracje/hurtownia-1200.webp 1200w" sizes="(min-width: 1081px) 40vw, 100vw" width="1200" height="900" alt="" loading="lazy"></figure>
       <ul class="firmy__lista">
         <li><b>Faktura VAT na firmę</b>Wybierasz „Firma” i wpisujesz NIP w zamówieniu.</li>
         <li><b>Ceny netto na wierzchu</b>Przy każdym produkcie cena brutto i netto.</li>

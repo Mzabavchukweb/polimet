@@ -52,6 +52,8 @@ window.PMstart = function () {
   function szukaj(fraza) { var w = wzorceSzukania(fraza); return w.length ? PM.prod.filter(function (p) { var t = norm(p.n + ' ' + p.kod); return w.every(function (r) { return r.test(t); }); }) : []; }
 
   /* ---------- koszyk ---------- */
+  // puste stany (brak wyników, brak produktu, pusty koszyk): rysunek otwartego ogniwa
+  var ILU_PUSTO = '<img class="pusto__ilu" src="img/ilustracje/ogniwa-360.webp" srcset="img/ilustracje/ogniwa-360.webp 360w, img/ilustracje/ogniwa-600.webp 600w" sizes="160px" width="600" height="600" alt="" loading="lazy">';
   var koszyk = czyt('pm_koszyk', []);
   // produkt wycofany po aktualizacji danych albo zła ilość w pamięci przeglądarki: wyrzucamy/poprawiamy zamiast psuć stronę
   koszyk = (Array.isArray(koszyk) ? koszyk : []).filter(function (x) { return x && ma(P, x.id); }).map(function (x) { return { id: x.id, q: ilePoprawna(P[x.id], x.q) }; });
@@ -250,7 +252,7 @@ window.PMstart = function () {
       if (btn) { btn.disabled = wybrano && !ile; btn.textContent = !wybrano ? 'Pokaż łańcuchy' : ile ? 'Pokaż ' + lancuchy(ile) : 'Brak tego rozmiaru'; }
       if (czysc) czysc.hidden = !wybrano;
       var dopisek = wybrano && bezRozm ? ' Jeszcze ' + lancuchy(bezRozm) + ' ma rozmiar zapisany inaczej (np. 7,00x15), zobaczysz je po wyczyszczeniu rozmiaru.' : '';
-      if (info) info.innerHTML = !wybrano ? 'Rozmiar przeczytasz na boku opony, np. 185/65 R15.'
+      if (info) info.innerHTML = !wybrano ? (sekcja.querySelector('.sezon__ilu') ? '' : 'Rozmiar przeczytasz na boku opony, np. 185/65 R15.')
         : ile ? (btn ? 'Pasuje do ' + rozm + ': ' + lancuchy(ile) + '.' : '<b>' + lancuchy(ile) + '</b> ' + (ile % 10 >= 2 && ile % 10 <= 4 && (ile % 100 < 12 || ile % 100 > 14) ? 'pasują' : 'pasuje') + ' do rozmiaru ' + rozm + '.')
         : 'Nie mamy łańcucha w tym rozmiarze w sklepie. Zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>, sprawdzimy dostępność.';
       if (info && dopisek) info.innerHTML += dopisek;
@@ -397,7 +399,8 @@ window.PMstart = function () {
       if (rodzic && rodzic.dzieci.length) {
         $('[data-podkat]').innerHTML = rodzic.dzieci.map(function (c) {
           var x = PM.kat[c], n = x.n.indexOf(rodzic.n + ' ') === 0 ? x.n.slice(rodzic.n.length + 1) : x.n; n = n.charAt(0).toUpperCase() + n.slice(1);
-          return '<li><a href="kategoria.html?id=' + c + '"' + (c === id ? ' aria-current="page"' : '') + '>' + tw(n) + ' <span>' + x.ile + '</span></a></li>';
+          return '<li><a href="kategoria.html?id=' + c + '"' + (c === id ? ' aria-current="page"' : '') + '>' + (x.img ? '<span class="podkat__img" aria-hidden="true">' + img(x.img, '', 128, 96) + '</span>' : '') +
+            '<span class="podkat__t"><b>' + tw(n) + '</b><span>' + liczbaProd(x.ile) + '</span></span></a></li>';
         }).join('');
       }
       var top = sciezka(id)[0]; $$('.menu a[data-kat="' + top.id + '"], .katpasek a[data-kat="' + top.id + '"]').forEach(function (a) { a.setAttribute('aria-current', 'true'); });
@@ -418,7 +421,7 @@ window.PMstart = function () {
       else if (sort === 'n') w.sort(function (a, b) { return a.n.localeCompare(b.n, 'pl', { numeric: true }); });
       else w.sort(function (a, b) { return (b.dost ? 1 : 0) - (a.dost ? 1 : 0); }); // domyślnie dostępne najpierw, kolejność sklepu zostaje
       $('[data-ile]').textContent = liczbaProd(w.length);
-      $('[data-lista]').innerHTML = w.length ? w.slice(0, ile).map(wiersz).join('') : '<li class="pusto">Nic nie pasuje. Zmień filtry, sprawdź pisownię albo zadzwoń: ' + PM.firma.telTxt + '.</li>';
+      $('[data-lista]').innerHTML = w.length ? w.slice(0, ile).map(wiersz).join('') : '<li class="pusto pusto--ilu">' + ILU_PUSTO + '<p>Nic nie pasuje. Zmień filtry, sprawdź pisownię albo zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p></li>';
       $('[data-wiecej]').hidden = w.length <= ile;
       $('[data-wiecej] button').textContent = 'Pokaż kolejne ' + Math.min(NA_STRONE, w.length - ile) + ' z ' + (w.length - ile);
       oznacz();
@@ -433,7 +436,7 @@ window.PMstart = function () {
     if (!p) {
       document.title = 'Nie ma takiego produktu | Polimet';
       $('[data-okr]').innerHTML = '<a href="index.html">Strona główna</a><span aria-current="page">Nie ma takiego produktu</span>';
-      $('[data-karta]').outerHTML = '<div class="pusto pusto--duze"><h1>Nie ma takiego produktu</h1><p>Mógł zostać wycofany ze sprzedaży albo link jest niepełny. Wpisz nazwę lub rozmiar w wyszukiwarce u góry albo zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p><p><a class="btn btn--c" href="index.html">Wróć do sklepu</a></p></div>';
+      $('[data-karta]').outerHTML = '<div class="pusto pusto--duze">' + ILU_PUSTO + '<h1>Nie ma takiego produktu</h1><p>Mógł zostać wycofany ze sprzedaży albo link jest niepełny. Wpisz nazwę lub rozmiar w wyszukiwarce u góry albo zadzwoń: <a href="tel:' + PM.firma.tel.replace(/\s/g, '') + '">' + PM.firma.telTxt + '</a>.</p><p><a class="btn btn--c" href="index.html">Wróć do sklepu</a></p></div>';
       p = null;
     }
   }
@@ -537,7 +540,7 @@ window.PMstart = function () {
     var box = $('[data-koszyk]');
     var pkk = $('[data-pasek-koszyka]');
     var rysujK = function () {
-      if (!koszyk.length) { box.innerHTML = '<p class="pusto">Koszyk jest pusty. <a href="index.html">Wróć do sklepu</a>.</p>'; box.style.display = 'block'; pkk.hidden = true; return; }
+      if (!koszyk.length) { box.innerHTML = '<div class="pusto pusto--koszyk">' + ILU_PUSTO + '<p>Koszyk jest pusty.</p><p><a class="btn btn--c" href="index.html">Wróć do sklepu</a></p></div>'; box.style.display = 'block'; pkk.hidden = true; return; }
       var k = koszty(), w = waga();
       var opDost = Object.keys(DOSTAWY).map(function (d) {
         var c = d === 'kurier' ? kosztKuriera(k.war, w) : 0;
@@ -579,7 +582,7 @@ window.PMstart = function () {
 
   if (cl.contains('str-zamowienie')) {
     var z = $('[data-zamowienie]');
-    if (!koszyk.length) { z.innerHTML = '<p class="pusto">Koszyk jest pusty. <a href="index.html">Wróć do sklepu</a>.</p>'; z.style.display = 'block'; }
+    if (!koszyk.length) { z.innerHTML = '<div class="pusto pusto--koszyk">' + ILU_PUSTO + '<p>Koszyk jest pusty.</p><p><a class="btn btn--c" href="index.html">Wróć do sklepu</a></p></div>'; z.style.display = 'block'; }
     else {
       var kz = koszty();
       // telefon: kwota do zapłaty od razu nad formularzem, produkty po rozwinięciu
