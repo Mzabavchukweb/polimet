@@ -539,9 +539,12 @@ window.PMstart = function () {
             '<td>' + formDodaj(x, 'r' + x.id, 'Dodaj') + '</td></tr>';
         }).join('') + '</tbody></table>' +
         (wszystkichBraci > bracia.length ? '<p class="prog"><a href="kategoria.html?id=' + kid + '">Wszystkie rozmiary (' + wszystkichBraci + ') w kategorii ' + esc(PM.kat[kid].n) + '</a></p>' : '') + '</section>' : '');
-    var rz = $('.karta__rozm'); if (rz) $('[data-karta]').after(rz);
+    // inne rozmiary: na komputerze w lewej kolumnie pod opisem, na telefonie pod panelem zakupu
+    var rz = $('.karta__rozm'), detK = $('.karta__det');
+    function miejsceRozm() { if (!rz) return; if (window.innerWidth >= 1081) { if (rz.parentNode !== detK) detK.appendChild(rz); } else if (rz.previousElementSibling !== $('[data-karta]')) $('[data-karta]').after(rz); }
+    miejsceRozm(); window.addEventListener('resize', miejsceRozm);
     var wyb = $('[data-rozmiar]'); if (wyb) wyb.addEventListener('change', function () { location.href = 'produkt.html?id=' + wyb.value; });
-    var ogS = document.createElement('section'); ogS.className = 'sek ogl'; ogS.setAttribute('aria-labelledby', 'ogl-t'); (rz || $('[data-karta]')).after(ogS); ostatnie(ogS, p.id);
+    var ogS = document.createElement('section'); ogS.className = 'sek ogl'; ogS.setAttribute('aria-labelledby', 'ogl-t'); $('[data-karta]').parentNode.appendChild(ogS); ostatnie(ogS, p.id);
     zapisz('pm_ogl', [p.id].concat(czyt('pm_ogl', []).filter(function (id) { return id !== p.id; })).slice(0, 12));
     oznacz();
     function kurier() {
